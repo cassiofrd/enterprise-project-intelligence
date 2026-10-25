@@ -1,0 +1,46 @@
+{
+  "dataset": "synthetic-enterprise-projects-v1",
+  "as_of": "2026-10-16",
+  "currency": "BRL",
+  "projects": [
+    {
+      "project_id": "P001",
+      "name": "Modernização do ERP",
+      "owner": "Equipe Sistemas",
+      "planned_start": "2026-07-01",
+      "planned_finish": "2027-02-28",
+      "milestones_overdue": 3,
+      "issues_open": 7,
+      "bac": 1000000,
+      "pv": 500000,
+      "ev": 440000,
+      "ac": 500000
+    },
+    {
+      "project_id": "P002",
+      "name": "Portal de Fornecedores",
+      "owner": "Equipe Produtos",
+      "planned_start": "2026-08-01",
+      "planned_finish": "2027-04-30",
+      "milestones_overdue": 0,
+      "issues_open": 2,
+      "bac": 800000,
+      "pv": 320000,
+      "ev": 336000,
+      "ac": 315000
+    },
+    {
+      "project_id": "P003",
+      "name": "Integração de Dados",
+      "owner": "Equipe Analytics",
+      "planned_start": "2026-06-01",
+      "planned_finish": "2026-12-20",
+      "milestones_overdue": 1,
+      "issues_open": 3,
+      "bac": 400000,
+      "pv": 250000,
+      "ev": 230000,
+      "ac": 210000
+    }
+  ]
+}
