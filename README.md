@@ -168,3 +168,106 @@ A execução local das funções Python não exige recursos de nuvem.
 As chamadas ao modelo e as avaliações no Foundry podem gerar cobranças por utilização. Recursos de monitoramento também podem gerar custos.
 
 Os orçamentos configurados no Azure são alertas e não bloqueiam automaticamente as cobranças.
+
+
+## Segurança de agentes
+
+O projeto inclui um laboratório de segurança para agentes de IA,
+com foco em Prompt Injection, autorização, validação de dados,
+controle de execução e proteção de informações sensíveis.
+
+Os experimentos foram realizados com dados fictícios e
+ferramentas Python locais, integradas ao agente existente
+no Microsoft Foundry quando necessário.
+
+### Controles estudados
+
+| Categoria | Implementação |
+|---|---|
+| Prompt Injection | Testes de ataques diretos e indiretos |
+| Validação estrutural | Verificação de campos e tipos de dados |
+| Validação de confiança | Conferência de responsável contra cadastro de referência |
+| Autorização | Controle de acesso por usuário e projeto fictício |
+| Limites de execução | Limitação de chamadas de ferramentas |
+| Fail Closed | Interrupção da execução diante de falhas de segurança |
+| Logs seguros | Registro de metadados sem exposição de argumentos sensíveis |
+
+### Arquivos do laboratório
+
+- `foundry_security_test.py`: experimentos de Prompt Injection e validação.
+- `test_owner_injection.py`: adulteração de campos permitidos.
+- `test_tool_authorization.py`: autorização de projetos e ferramentas.
+- `test_execution_limits.py`: limitação de chamadas.
+- `foundry_secure_agent.py`: integração dos controles ao fluxo do agente.
+- `foundry_fail_closed.py`: interrupção segura e logging controlado.
+- `test_secure_logging.py`: proteção de informações sensíveis em logs.
+- `tests/test_security_controls.py`: testes automatizados de regressão.
+
+### Executar experimentos localmente
+
+Os experimentos abaixo não exigem chamadas ao modelo:
+
+```powershell
+python foundry_security_test.py --offline-check
+python foundry_secure_agent.py --offline-check
+python foundry_fail_closed.py --offline-check
+```
+
+As execuções com o Microsoft Foundry exigem autenticação,
+endpoint configurado e acesso ao agente existente. Essas
+chamadas podem gerar custos de utilização.
+
+### Limitações de segurança
+
+Este projeto é um laboratório educacional, não uma solução
+de segurança certificada para produção.
+
+As identidades utilizadas nos testes são simuladas. O cadastro
+de responsáveis é fixo e cobre cenários específicos.
+
+As validações implementadas não eliminam todas as possibilidades
+de Prompt Injection, vazamento de dados ou acesso indevido.
+
+Uma implantação corporativa exigiria autenticação real,
+políticas de autorização completas, gerenciamento de segredos,
+monitoramento, revisão de permissões e testes adicionais.
+
+## Testes automatizados com pytest
+
+O projeto possui testes das ferramentas financeiras e dos
+controles de segurança.
+
+Instale as dependências de desenvolvimento:
+
+```powershell
+python -m pip install -r requirements-dev.txt
+```
+
+Execute toda a suíte:
+
+```powershell
+python -m pytest -q
+```
+
+Na última execução local registrada, os 15 testes passaram.
+
+Esses testes utilizam dados fictícios e não precisam de
+conexão com o Microsoft Foundry.
+
+## Integração contínua — GitHub Actions
+
+O arquivo `.github/workflows/security-tests.yml` configura
+a execução automatizada dos testes no GitHub Actions.
+
+O workflow é acionado nas seguintes situações:
+
+- Push na branch `feature/agent-security`.
+- Pull Request direcionado à branch `main`.
+- Execução manual pelo GitHub Actions.
+
+O workflow utiliza Python 3.12, instala as dependências
+definidas em `requirements-dev.txt` e executa o pytest.
+
+Essa automação ajuda a identificar regressões conhecidas,
+mas não substitui avaliações de segurança abrangentes
+nem testes de integração com serviços externos.
