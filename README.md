@@ -271,3 +271,21 @@ definidas em `requirements-dev.txt` e executa o pytest.
 Essa automação ajuda a identificar regressões conhecidas,
 mas não substitui avaliações de segurança abrangentes
 nem testes de integração com serviços externos.
+
+
+## Security Threat Model
+
+The project includes a documented security threat model covering:
+
+- Prompt injection and untrusted tool data
+- Tool authorization and execution limits
+- Fail Closed behavior
+- Secure logging
+- Financial output validation
+- Dependency and secret protection
+- Residual risks and production recommendations
+
+See [Threat Model](docs/THREAT_MODEL.md) for the complete analysis.
+
+The security controls are educational and use synthetic data.
+They do not represent a production security certification.
